@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from "./pages/home";
+import ProductList from './pages/productList/ProductList';
+import Product from './pages/product/Product';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Cart from './pages/cart/Cart';
+import Layout from './components/Layout';
+import {
+  Routes,
+  Route
+} from "react-router-dom";
+import UserAuth from "./components/common/UserAuth";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route element={<UserAuth />}>
+          <Route path="cart" element={<Cart />} />
+          <Route path="products">
+            <Route index element={<ProductList />} />
+            <Route path=":productId" element={<Product />} />
+          </Route>
+        </Route>
+        {/* <Route path="about" element={<About />} />
+        <Route path="*" element={<Missing />} /> */}
+      </Route>
+    </Routes>
   );
 }
 
