@@ -10,6 +10,7 @@ const useAxiosPrivate = () => {
     useEffect(() => {
         const requestIntercept = axiosPrivate.axios.interceptors.request.use(
             config => {
+                console.log('Starting Request', JSON.stringify(config, null, 2))
                 if (!config.headers['Authorization']) {
                     config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
                 }
@@ -23,27 +24,18 @@ const useAxiosPrivate = () => {
 
                 const prevRequest = error?.config;
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
-                    prevRequest.sent = true;
                     const newAccessToken = await refresh();
-                    prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-
                     //not working---> // return axiosPrivate(prevRequest); 
 
                     /*Need to be a plain javascript Object but instead
                      it is converted internally to an AxiosInstance object. */
 
-                    //works---> // return axiosPrivate({
-                    //     ...prevRequest,
-                    //     headers: {...prevRequest.headers, Authorization: `Bearer ${newAccessToken}`},
-                    //     sent: true
-                    // });
-
                     return axiosPrivate.axios({
                         ...prevRequest,
-                        ...{
-                            headers: JSON.parse(JSON.stringify(prevRequest.headers)),
-                        },
+                        headers: {...prevRequest.headers, Authorization: `Bearer ${newAccessToken}`},
+                        sent: true
                     });
+
 
                 }
                 return Promise.reject(error);

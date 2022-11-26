@@ -19,13 +19,12 @@ class AxiosPrivate {
             const config = {
                 url: BASE_URL + url,
                 method,
-                ...data && { data },
-                // withCredentials: true
+                data
             };
+            console.log("conf", config.headers);
             if (params) {
                 config.params = { params };
             }
-            console.log("conf", config)
             return await this.axios(config);
         } catch (err) {
             console.log("Error in Axios Private Instance", err);
@@ -38,7 +37,7 @@ class AxiosPrivate {
 //     withCredentials: true
 // });
 
-export const axiosPrivate = new AxiosPrivate();
+export const axiosPrivate = Object.freeze(new AxiosPrivate());
 
 
 export default async function createAxiosInstance(

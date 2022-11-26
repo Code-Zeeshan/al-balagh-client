@@ -17,7 +17,8 @@ const Product = ({ item }) => {
     
     const goToProductDetail = e => {
         e.preventDefault();
-        navigate(`/products/${item._id}`);
+        // navigate(`/products/${item._id}`);
+        navigate(`/products/add`);
       }
 
     return (

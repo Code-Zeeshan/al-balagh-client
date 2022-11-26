@@ -12,5 +12,6 @@ export const API_URL = Object.freeze({
     PRODUCT: Object.freeze({
         FIND_MANY: "/products/findMany",
         FIND_ONE: "/products/findOne",
+        ADD_ONE: "/products/addOne",
     }),
 });

@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Cart from './pages/cart/Cart';
 import Layout from './components/Layout';
+import AddProduct from "./pages/addProduct/AddProduct"
 import {
   Routes,
   Route
@@ -24,6 +25,7 @@ function App() {
           <Route path="products">
             <Route index element={<ProductList />} />
             <Route path=":productId" element={<Product />} />
+            <Route path="add" element={<AddProduct />} />
           </Route>
         </Route>
         {/* <Route path="about" element={<About />} />

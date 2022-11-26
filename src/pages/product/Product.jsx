@@ -2,15 +2,12 @@ import { Add, Remove } from "@material-ui/icons";
 import { Style } from "./Product.styled";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import productService from "../../services/product.service";
 
 const Product = () => {
 
   const [product, setProduct] = useState({});
-  const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { productId } = useParams();

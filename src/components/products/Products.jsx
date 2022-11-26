@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
-import { popularProducts } from "../../services/data";
 import Product from "../product/Product";
 import { Style } from "./Products.styled";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import authService from "../../services/auth.service";
 import productService from "../../services/product.service";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import useAuth from "../../hooks/useAuth";
 
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
-  const { auth } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
