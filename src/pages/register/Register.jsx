@@ -18,9 +18,7 @@ const Register = () => {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        console.log("name", name);
         const response = await authService.register({ name, email, password });
-        console.log("response", response);
         goToProducts();
     };
 

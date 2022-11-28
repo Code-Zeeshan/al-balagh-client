@@ -1,11 +1,41 @@
-import React from 'react'
 import { Badge } from "@material-ui/core";
 import { Style } from './Navbar.styled';
 import { Search, ShoppingCartOutlined } from '@material-ui/icons';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { getCount } from "../../redux/cart/CartActions";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const count = useSelector(state => state.cart.count);
+  const [cartCount, setCartCount] = useState(0);
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let isMounted = true;
+    const getCartCount = async () => {
+      try {
+        const response = await axiosPrivate.axios.get("/carts/getCount");
+        setCartCount(response.data);
+        dispatch(getCount(cartCount));
+      } catch (err) {
+        console.error(err);
+        navigate('/login', { state: { from: location }, replace: true });
+      }
+    }
+    if (auth.email) {
+      getCartCount();
+    }
+    return () => {
+      isMounted = false;
+    }
+  }, [cartCount, auth])
 
   const goToRegister = e => {
     e.preventDefault();
@@ -20,11 +50,15 @@ const Navbar = () => {
     e.preventDefault();
     navigate("/cart");
   }
+  const goToProducts = e => {
+    e.preventDefault();
+    navigate("/products");
+  }
   return (
     <Style.Container>
       <Style.Wrapper>
         <Style.Left>
-        <Style.Logo>Al Balagh</Style.Logo>
+          <Style.Logo>Al Balagh</Style.Logo>
           {/* <Style.Language>
             En
           </Style.Language>
@@ -36,14 +70,27 @@ const Navbar = () => {
         <Style.Right>
           <Style.MenuItem onClick={(e) => goToRegister(e)}>REGISTER</Style.MenuItem>
           <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>
-          <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
-          <Style.MenuItem onClick={(e) => goToLogin(e)}>PROFILE</Style.MenuItem>
-          <Style.MenuItem onClick={(e) => goToCart(e)}>
-            <Badge overlap="rectangular" badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </Style.MenuItem>
+          {auth.role === 2345 &&
+            <>
+              <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToLogin(e)}>PROFILE</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToCart(e)}>
+                <Badge overlap="rectangular" badgeContent={count.toString()} color="primary">
+                  <ShoppingCartOutlined />
+                </Badge>
+              </Style.MenuItem>
+            </>
+          }
         </Style.Right>
+        {auth.role === 7260 &&
+          <Style.Right>
+            <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToLogin(e)}>ORDER</Style.MenuItem>
+          </Style.Right>
+        }
       </Style.Wrapper>
     </Style.Container>
   )

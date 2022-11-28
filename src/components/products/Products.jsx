@@ -3,12 +3,13 @@ import Product from "../product/Product";
 import { Style } from "./Products.styled";
 import productService from "../../services/product.service";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     let isMounted = true;
@@ -16,7 +17,9 @@ const Products = () => {
 
     const getProducts = async () => {
       try {
-        const response = await productService.getAll();
+        // const response = await productService.getAll();
+        const response = await axiosPrivate.axios.get("/products/findMany");
+
         isMounted && setProducts(response.data);
       } catch (err) {
         console.error(err);

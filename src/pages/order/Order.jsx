@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCount } from "../../redux/cart/CartActions";
 import React from "react";
 
-const Cart = () => {
+const Order = () => {
     const [cart, setCart] = useState({});
     const [products, setProducts] = useState([]);
     const { auth } = useAuth();
@@ -16,20 +16,16 @@ const Cart = () => {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [totalAmount, setTotalAmount] = useState(0);
+
 
     useEffect(() => {
         let isMounted = true;
         const getCart = async () => {
             try {
                 const response = await axiosPrivate.axios.get("/carts/findByUserId");
-                setCart({ ...response.data });
-                debugger;
-                if (response.data?.products?.length > 0) {
-                    setProducts([...response.data.products]);
-                }
-                else {
-                    dispatch(getCount(0));
+                setCart(response.data);
+                if (cart?.products?.length > 0) {
+                    setProducts(cart.products);
                 }
             } catch (err) {
                 console.error(err);
@@ -64,23 +60,20 @@ const Cart = () => {
         }
         return 0;
     }
-
-    const countTotalAmount = () => {
-        debugger;
-        if (products?.length > 0) {
-            return products.reduce((acc, value) =>
-                acc + (value.count * value.productId.price),
-                0);
-        }
-        return 0;
-    }
     const increment = async (e, product) => {
         e.preventDefault();
         if (product.count < product.productId.quantity) {
             product.count = ++product.count;
+            setProducts(prev=>{
+                prev.map(ele=>{
+                    if(ele.productId._id === product.productId._id) {
+                        ele.count = ++ele.count;
+                    }
+                    console.log("e", ele);
+                    return ele;
+                })
+            });
             await updateCart(product);
-            setProducts([...products, product]);
-            setTotalAmount(countTotalAmount());
             dispatch(getCount(countTotalItems()));
         }
     }
@@ -91,31 +84,13 @@ const Cart = () => {
             product.count = --product.count;
             await updateCart(product);
             setProducts([...products, product]);
-            setTotalAmount(countTotalAmount());
             dispatch(getCount(countTotalItems()));
         }
     }
 
-    const placeOrder = async () => {
-        // e.preventDefault();
+    const placeOrder = async e=>{
+        e.preventDefault();
         console.log(products);
-        const items = products.map(item => {
-            return { productId: item.productId._id, quantity: item.count }
-        });
-        try {
-            const response = await axiosPrivate.axios.post("/orders/addOne",
-                {
-                    count: countTotalItems(),
-                    products: items,
-                    userId: cart.userId,
-                    amount: countTotalAmount()
-                }
-            );
-            console.log("res", response.data);
-        } catch (err) {
-            console.error(err);
-            navigate('/login', { state: { from: location }, replace: true });
-        }
     }
 
     return (
@@ -189,11 +164,11 @@ const Cart = () => {
                     </Style.Summary> */}
                 </Style.Bottom>
 
-                <h3>Total : PKR {totalAmount}</h3>
-                <Style.TopButton onClick={placeOrder}>Order</Style.TopButton>
+                <h3>Total : PKR 20</h3>
+                <Style.TopButton onClick={(e)=>placeOrder(e)}>Order</Style.TopButton>
             </Style.Wrapper>
         </Style.Container>
     );
 };
 
-export default Cart;
+export default Order;

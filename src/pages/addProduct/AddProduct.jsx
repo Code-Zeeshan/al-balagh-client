@@ -34,16 +34,7 @@ const AddProduct = () => {
         e.preventDefault();
 
         try {
-            const response = await productService.addOne({
-                title,
-                desc,
-                img,
-                size,
-                color,
-                price,
-                quantity
-            });
-            // const payload = {
+            // const response = await productService.addOne({
             //     title,
             //     desc,
             //     img,
@@ -51,15 +42,23 @@ const AddProduct = () => {
             //     color,
             //     price,
             //     quantity
-            // };
-            // const formData = new FormData();
-            // for (const key in payload) {
-            //     formData.append(key, payload[key]);
-            // }
-            // const response = await axiosPrivate.axios.post("http://localhost:5000/products/addOne", formData);
+            // });
+            const payload = {
+                title,
+                desc,
+                img,
+                size,
+                color,
+                price,
+                quantity
+            };
+            const formData = new FormData();
+            for (const key in payload) {
+                formData.append(key, payload[key]);
+            }
+            const response = await axiosPrivate.axios.post("/products/addOne", formData);
             // setEmail('');
             // setPassword('');
-            console.log("res--", response.data);
             navigate("/products");
         } catch (err) {
             console.error("err", err);
@@ -117,7 +116,7 @@ const AddProduct = () => {
 
                     <Style.Input
                         placeholder="price"
-                        type="text"
+                        type="number"
                         id="price"
                         ref={userRef}
                         autoComplete="off"
@@ -128,7 +127,7 @@ const AddProduct = () => {
 
                     <Style.Input
                         placeholder="quantity"
-                        type="text"
+                        type="number"
                         id="quantity"
                         ref={userRef}
                         autoComplete="off"

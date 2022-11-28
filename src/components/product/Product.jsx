@@ -17,14 +17,14 @@ const Product = ({ item }) => {
     
     const goToProductDetail = e => {
         e.preventDefault();
-        // navigate(`/products/${item._id}`);
-        navigate(`/products/add`);
+        navigate(`/products/${item._id}`);
+        // navigate(`/products/add`);
       }
 
     return (
         <Style.Container>
             <Style.Circle />
-            <Style.Image src={item.img} />
+            <Style.Image src={item.imageURL} />
             <Style.Info>
                 <Style.Icon>
                     <ShoppingCartOutlined />

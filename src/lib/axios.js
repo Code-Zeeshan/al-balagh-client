@@ -21,7 +21,6 @@ class AxiosPrivate {
                 method,
                 data
             };
-            console.log("conf", config.headers);
             if (params) {
                 config.params = { params };
             }
