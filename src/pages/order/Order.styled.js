@@ -21,7 +21,7 @@ export const Style = {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    /* ${mobile({flex: "1"})} */
+    /* ${mobile({ flex: "1" })} */
     `,
 
     TopButton: styled.button`
@@ -49,7 +49,7 @@ export const Style = {
     `,
 
     Info: styled.div`
-    flex: 3;
+    flex: 1;
     `,
 
     Product: styled.div`
@@ -106,8 +106,11 @@ export const Style = {
     `,
 
     ProductPrice: styled.div`
-    font-size: 30px;
-    font-weight: 200;
+    /* font-size: 30px; */
+    /* font-weight: 200; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     `,
 
     Hr: styled.hr`
@@ -139,13 +142,27 @@ export const Style = {
     SummaryItemText: styled.span``,
 
     SummaryItemPrice: styled.span``,
+    UserDetail: styled.div`
+    display: flex;
+    justify-content: space-between;
+    `,
 
     Button: styled.button`
-    width: 100%;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    font-weight: 600;
+       width: 8%;
+        /* border: none; */
+        padding: 10px 5px;
+        background-color: white;
+        color: black;
+        cursor: pointer;
+        margin-bottom: 10px;
     `,
+    LastRow: styled.button`
+        flex-grow: 1;
+        display: flex;
+        /* align-items */
+        /* justify-content: ; */
+        /* align-self: flex-start; */
+        /* width: 100%; */
+    `
 }
 

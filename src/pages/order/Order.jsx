@@ -9,8 +9,7 @@ import { getCount } from "../../redux/cart/CartActions";
 import React from "react";
 
 const Order = () => {
-    const [cart, setCart] = useState({});
-    const [products, setProducts] = useState([]);
+    const [orders, setOrders] = useState([]);
     const { auth } = useAuth();
     const location = useLocation();
     const axiosPrivate = useAxiosPrivate();
@@ -23,6 +22,9 @@ const Order = () => {
         const getOrders = async () => {
             try {
                 const response = await axiosPrivate.axios.get("/orders/findMany");
+                if (response.data?.length > 0) {
+                    setOrders(response.data);
+                }
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
@@ -49,30 +51,50 @@ const Order = () => {
                 </Style.Top> */}
                 <Style.Bottom>
                     <Style.Info>
-                        {cart?.products?.map((item, i) => (
+                        {orders?.map((item, i) => (
                             <React.Fragment key={item._id}>
-                                <Style.Product>
-                                    <Style.ProductDetail>
-                                        <Style.Image src={item.productId.imageURL} />
-                                        <Style.Details>
-                                            <Style.ProductName>
-                                                <b>Product:</b> {item.productId.title}
-                                            </Style.ProductName>
-                                        </Style.Details>
-                                    </Style.ProductDetail>
-                                    <Style.PriceDetail>
-                                        <Style.ProductAmountContainer>
-                                        </Style.ProductAmountContainer>
-                                        <Style.ProductPrice>{item.productId.price} PKR</Style.ProductPrice>
-                                    </Style.PriceDetail>
-                                </Style.Product>
+                                <Style.UserDetail>
+                                    <b>Name: </b> {item._id.name}
+                                    <b>Email: </b> {item._id.email}
+                                    <b>City: </b>{item._id.city}
+                                </Style.UserDetail>
+                                {item?.orders?.map((ele, i) => (
+                                    <Style.Product key={i}>
+                                        <Style.ProductDetail>
+                                            <Style.Image src={ele.products.imageURL} />
+                                            <Style.Details>
+                                                <Style.ProductName>
+                                                    <b>Product:</b> {ele.products.title}
+                                                </Style.ProductName>
+                                                <Style.ProductName>
+                                                    <b>Price:</b> {ele.products.price} PKR
+                                                </Style.ProductName>
+                                            </Style.Details>
+                                        </Style.ProductDetail>
+                                        <Style.PriceDetail>
+                                            <Style.ProductAmountContainer>
+                                            </Style.ProductAmountContainer>
+                                            <Style.ProductPrice>
+                                                <b>Quantity</b>
+                                                {ele.products.quantity}
+                                            </Style.ProductPrice>
+                                        </Style.PriceDetail>
+                                    </Style.Product>
+                                ))}
                                 <Style.Hr />
+                                {/* <Style.LastRow> */}
+                                <div style={{ display: "flex", width:"100%" }}>
+                                    <h3>Total : PKR {item.total}</h3>
+                                    <div style={{ display: "flex", width:"100%", justifyContent: "center", alignItems: "center" }}>
+                                        <Style.Button >ACCEPT</Style.Button>
+                                        <Style.Button >REJECT</Style.Button>
+                                    </div>
+                                </div>
+                                {/* </Style.LastRow> */}
                             </React.Fragment>
                         ))}
                     </Style.Info>
                 </Style.Bottom>
-
-                <h3>Total : PKR </h3>
                 {/* <Style.TopButton onClick={(e)=>placeOrder(e)}>Order</Style.TopButton> */}
             </Style.Wrapper>
         </Style.Container>

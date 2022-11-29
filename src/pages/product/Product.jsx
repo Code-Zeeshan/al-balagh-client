@@ -75,7 +75,7 @@ const Product = () => {
               <Style.FilterColor color="gray" />
             </Style.Filter> */}
             <Style.Filter>
-              <Style.FilterTitle>{product.size}</Style.FilterTitle>
+              <Style.FilterTitle>Size</Style.FilterTitle>
               <Style.FilterSize>
                 {/* <Style.FilterSizeOption>XS</Style.FilterSizeOption>
                 <Style.FilterSizeOption>S</Style.FilterSizeOption>
