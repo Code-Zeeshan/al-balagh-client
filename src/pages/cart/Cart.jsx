@@ -24,19 +24,20 @@ const Cart = () => {
             try {
                 const response = await axiosPrivate.axios.get("/carts/findByUserId");
                 setCart({ ...response.data });
-                debugger;
                 if (response.data?.products?.length > 0) {
                     setProducts([...response.data.products]);
+                    console.log("prod", products);
                 }
                 else {
                     dispatch(getCount(0));
                 }
+                countTotalAmount();
+
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
             }
         }
-
         getCart();
         return () => {
             isMounted = false;
@@ -59,46 +60,50 @@ const Cart = () => {
     }
     const countTotalItems = () => {
         if (products.length > 0) {
-            console.log(products);
             return products.reduce((acc, value) => acc + value.count, 0);
         }
         return 0;
     }
 
     const countTotalAmount = () => {
-        debugger;
+        let total = 0;
         if (products?.length > 0) {
-            return products.reduce((acc, value) =>
+            total = products.reduce((acc, value) =>
                 acc + (value.count * value.productId.price),
                 0);
+
         }
-        return 0;
+        setTotalAmount(total);
+        // return total;
     }
     const increment = async (e, product) => {
         e.preventDefault();
+        const index = products.indexOf(product);
         if (product.count < product.productId.quantity) {
-            product.count = ++product.count;
             await updateCart(product);
-            setProducts([...products, product]);
-            setTotalAmount(countTotalAmount());
+            const newProducts = [...products];
+            newProducts[index].count++;
+            setProducts(newProducts);
+            countTotalAmount();
             dispatch(getCount(countTotalItems()));
         }
     }
 
     const decrement = async (e, product) => {
         e.preventDefault();
+        const index = products.indexOf(product);
         if (product.count > 0) {
-            product.count = --product.count;
             await updateCart(product);
-            setProducts([...products, product]);
-            setTotalAmount(countTotalAmount());
+            const newProducts = [...products];
+            newProducts[index].count--;
+            setProducts(newProducts);
+            countTotalAmount();
             dispatch(getCount(countTotalItems()));
         }
     }
 
     const placeOrder = async () => {
         // e.preventDefault();
-        console.log(products);
         const items = products.map(item => {
             return { productId: item.productId._id, quantity: item.count }
         });
@@ -108,7 +113,7 @@ const Cart = () => {
                     count: countTotalItems(),
                     products: items,
                     userId: cart.userId,
-                    amount: countTotalAmount()
+                    amount: totalAmount
                 }
             );
             console.log("res", response.data);

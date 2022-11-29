@@ -2,6 +2,7 @@ import { Style } from "./Register.styled";
 import authService from "../../services/auth.service";
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { userScehma } from "../../validations/userValidation";
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -26,7 +27,7 @@ const Register = () => {
         <Style.Container>
             <Style.Wrapper>
                 <Style.Title>CREATE AN ACCOUNT</Style.Title>
-                <Style.Form>
+                <Style.Form onSubmit={handleClick}>
                     <Style.Input placeholder="name"
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -43,7 +44,7 @@ const Register = () => {
                         By creating an account, I consent to the processing of my personal
                         data in accordance with the <b>PRIVACY POLICY</b>
                     </Style.Agreement>
-                    <Style.Button onClick={(e)=> handleClick(e)}>CREATE</Style.Button>
+                    <Style.Button type="submit" onClick={(e) => handleClick(e)}>CREATE</Style.Button>
                 </Style.Form>
             </Style.Wrapper>
         </Style.Container>
