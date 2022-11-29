@@ -24,15 +24,6 @@ const Cart = () => {
             try {
                 const response = await axiosPrivate.axios.get("/carts/findByUserId");
                 setCart({ ...response.data });
-                if (response.data?.products?.length > 0) {
-                    setProducts([...response.data.products]);
-                    console.log("prod", products);
-                }
-                else {
-                    dispatch(getCount(0));
-                }
-                countTotalAmount();
-
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
@@ -43,6 +34,16 @@ const Cart = () => {
             isMounted = false;
         }
     }, []);
+
+    useEffect(() => {
+        if (cart?.products?.length > 0) {
+            setProducts([...cart.products]);
+            countTotalAmount();
+        }
+        // else {
+        //     dispatch(getCount(0));
+        // }
+    }, [cart]);
 
     const updateCart = async (product) => {
         try {
@@ -116,7 +117,6 @@ const Cart = () => {
                     amount: totalAmount
                 }
             );
-            console.log("res", response.data);
         } catch (err) {
             console.error(err);
             navigate('/login', { state: { from: location }, replace: true });
