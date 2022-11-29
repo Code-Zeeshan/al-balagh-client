@@ -72,7 +72,7 @@ const Order = () => {
                     </Style.Info>
                 </Style.Bottom>
 
-                <h3>Total : PKR 20</h3>
+                <h3>Total : PKR </h3>
                 {/* <Style.TopButton onClick={(e)=>placeOrder(e)}>Order</Style.TopButton> */}
             </Style.Wrapper>
         </Style.Container>
