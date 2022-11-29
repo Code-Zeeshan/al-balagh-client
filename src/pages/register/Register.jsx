@@ -12,6 +12,9 @@ const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [contact, setContact] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
     // const [password, setPassword] = useState("");
     const goToProducts = () => {
         navigate("/products");
@@ -19,7 +22,14 @@ const Register = () => {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        const response = await authService.register({ name, email, password });
+        const response = await authService.register({
+            name,
+            email,
+            password,
+            address,
+            city,
+            contact,
+        });
         goToProducts();
     };
 
@@ -28,18 +38,25 @@ const Register = () => {
             <Style.Wrapper>
                 <Style.Title>CREATE AN ACCOUNT</Style.Title>
                 <Style.Form onSubmit={handleClick}>
-                    <Style.Input placeholder="name"
+                    <Style.Input placeholder="name" name="name"
                         onChange={(e) => setName(e.target.value)}
                     />
                     {/* <Style.Input placeholder="last name" /> */}
                     {/* <Style.Input placeholder="username" /> */}
-                    <Style.Input placeholder="email"
-                        onChange={(e) => setEmail(e.target.value)}
+                    <Style.Input placeholder="Contact" name="contact"
+                        onChange={(e) => setContact(e.target.value)}
                     />
-                    <Style.Input placeholder="password"
+                    <Style.Input placeholder="Address" name="address"
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                    <Style.Input placeholder="City" name="city"
+                        onChange={(e) => setCity(e.target.value)}
+                    />
+
+                    <Style.Input placeholder="password" name="password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Style.Input placeholder="confirm password" />
+                    <Style.Input placeholder="confirm password" name="confirm password" />
                     <Style.Agreement>
                         By creating an account, I consent to the processing of my personal
                         data in accordance with the <b>PRIVACY POLICY</b>

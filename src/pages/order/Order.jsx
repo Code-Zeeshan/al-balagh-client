@@ -22,7 +22,7 @@ const Order = () => {
         let isMounted = true;
         const getCart = async () => {
             try {
-                const response = await axiosPrivate.axios.get("/carts/findByUserId");
+                const response = await axiosPrivate.axios.get("/orders/findByUserId");
                 setCart(response.data);
                 if (cart?.products?.length > 0) {
                     setProducts(cart.products);
@@ -51,40 +51,6 @@ const Order = () => {
         } catch (err) {
             console.error(err);
             navigate('/login', { state: { from: location }, replace: true });
-        }
-    }
-    const countTotalItems = () => {
-        if (products.length > 0) {
-            console.log(products);
-            return products.reduce((acc, value) => acc + value.count, 0);
-        }
-        return 0;
-    }
-    const increment = async (e, product) => {
-        e.preventDefault();
-        if (product.count < product.productId.quantity) {
-            product.count = ++product.count;
-            setProducts(prev=>{
-                prev.map(ele=>{
-                    if(ele.productId._id === product.productId._id) {
-                        ele.count = ++ele.count;
-                    }
-                    console.log("e", ele);
-                    return ele;
-                })
-            });
-            await updateCart(product);
-            dispatch(getCount(countTotalItems()));
-        }
-    }
-
-    const decrement = async (e, product) => {
-        e.preventDefault();
-        if (product.count > 0) {
-            product.count = --product.count;
-            await updateCart(product);
-            setProducts([...products, product]);
-            dispatch(getCount(countTotalItems()));
         }
     }
 

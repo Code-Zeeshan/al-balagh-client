@@ -195,7 +195,7 @@ const Cart = () => {
                 </Style.Bottom>
 
                 <h3>Total : PKR {totalAmount}</h3>
-                <Style.TopButton onClick={placeOrder}>Order</Style.TopButton>
+                <Style.TopButton disabled={totalAmount === 0} onClick={placeOrder}>Order</Style.TopButton>
             </Style.Wrapper>
         </Style.Container>
     );
