@@ -1,4 +1,4 @@
-import { Style } from "./Cart.styled";
+import { Style } from "./Order.styled";
 import { Add, Remove } from "@material-ui/icons";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -20,44 +20,20 @@ const Order = () => {
 
     useEffect(() => {
         let isMounted = true;
-        const getCart = async () => {
+        const getOrders = async () => {
             try {
-                const response = await axiosPrivate.axios.get("/orders/findByUserId");
-                setCart(response.data);
-                if (cart?.products?.length > 0) {
-                    setProducts(cart.products);
-                }
+                const response = await axiosPrivate.axios.get("/orders/findMany");
             } catch (err) {
                 console.error(err);
                 navigate('/login', { state: { from: location }, replace: true });
             }
         }
 
-        getCart();
+        getOrders();
         return () => {
             isMounted = false;
         }
     }, []);
-
-    const updateCart = async (product) => {
-        try {
-            const response = await axiosPrivate.axios.put("/carts/updateOne",
-                {
-                    count: product.count,
-                    productId: product.productId._id,
-                    userId: cart.userId
-                }
-            );
-        } catch (err) {
-            console.error(err);
-            navigate('/login', { state: { from: location }, replace: true });
-        }
-    }
-
-    const placeOrder = async e=>{
-        e.preventDefault();
-        console.log(products);
-    }
 
     return (
         <Style.Container>
@@ -82,24 +58,10 @@ const Order = () => {
                                             <Style.ProductName>
                                                 <b>Product:</b> {item.productId.title}
                                             </Style.ProductName>
-                                            {/* <Style.ProductId>
-                                                <b>ID:</b> 93813718293
-                                            </Style.ProductId> */}
-                                            {/* <Style.ProductColor color="black" /> */}
-                                            {/* <Style.ProductSize>
-                                                <b>Size:</b> 37.5
-                                            </Style.ProductSize> */}
                                         </Style.Details>
                                     </Style.ProductDetail>
                                     <Style.PriceDetail>
                                         <Style.ProductAmountContainer>
-                                            <Add
-                                                onClick={(e) => increment(e, item, products)}
-                                            />
-                                            <Style.ProductAmount>{item.count}</Style.ProductAmount>
-                                            <Remove
-                                                onClick={(e) => decrement(e, item, products)}
-                                            />
                                         </Style.ProductAmountContainer>
                                         <Style.ProductPrice>{item.productId.price} PKR</Style.ProductPrice>
                                     </Style.PriceDetail>
@@ -108,30 +70,10 @@ const Order = () => {
                             </React.Fragment>
                         ))}
                     </Style.Info>
-                    {/* <Style.Summary>
-                        <Style.SummaryTitle>ORDER SUMMARY</Style.SummaryTitle>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Subtotal</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 80</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Estimated Shipping</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 5.90</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Shipping Discount</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ -5.90</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem type="total">
-                            <Style.SummaryItemText>Total</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 80</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.TopButton>CHECKOUT NOW</Style.TopButton>
-                    </Style.Summary> */}
                 </Style.Bottom>
 
                 <h3>Total : PKR 20</h3>
-                <Style.TopButton onClick={(e)=>placeOrder(e)}>Order</Style.TopButton>
+                {/* <Style.TopButton onClick={(e)=>placeOrder(e)}>Order</Style.TopButton> */}
             </Style.Wrapper>
         </Style.Container>
     );

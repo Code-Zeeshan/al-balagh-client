@@ -5,8 +5,9 @@ import Product from './pages/product/Product';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Cart from './pages/cart/Cart';
+import Order from './pages/order/Order';
 import Layout from './components/Layout';
-import AddProduct from "./pages/addProduct/AddProduct"
+import AddProduct from "./pages/addProduct/AddProduct";
 import {
   Routes,
   Route
@@ -22,6 +23,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route element={<UserAuth />}>
           <Route path="cart" element={<Cart />} />
+          <Route path="orders" element={<Order />} />
           <Route path="products">
             <Route index element={<ProductList />} />
             <Route path=":productId" element={<Product />} />
