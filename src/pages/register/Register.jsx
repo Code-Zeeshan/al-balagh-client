@@ -41,6 +41,9 @@ const Register = () => {
                     <Style.Input placeholder="name" name="name"
                         onChange={(e) => setName(e.target.value)}
                     />
+                    <Style.Input placeholder="email" name="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                     {/* <Style.Input placeholder="last name" /> */}
                     {/* <Style.Input placeholder="username" /> */}
                     <Style.Input placeholder="Contact" name="contact"
