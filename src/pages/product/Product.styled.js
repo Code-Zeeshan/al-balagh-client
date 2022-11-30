@@ -20,11 +20,13 @@ export const Style = {
 
     InfoContainer: styled.div`
     flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 0px 50px;
 `,
 
     Title: styled.h1`
-    font-weight: 200;
+    /* font-weight: 200; */
 `,
 
     Desc: styled.p`
@@ -32,20 +34,22 @@ export const Style = {
 `,
 
     Price: styled.span`
-    font-weight: 100;
-    font-size: 40px;
+    /* font-weight: 100; */
+    font-size: 20px;
 `,
 
     FilterContainer: styled.div`
-    width: 50%;
+    width: 100%;
     margin: 30px 0px;
     display: flex;
     justify-content: space-between;
 `,
 
     Filter: styled.div`
+    flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
 `,
 
     FilterTitle: styled.span`
@@ -70,13 +74,16 @@ export const Style = {
     FilterSizeOption: styled.option``,
 
     AddContainer: styled.div`
-    width: 50%;
+    width: 100%;
     display: flex;
+    height: 18%;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    justify-content: space-between;
 `,
 
     AmountContainer: styled.div`
+    flex: 1.5;
     display: flex;
     align-items: center;
     font-weight: 700;

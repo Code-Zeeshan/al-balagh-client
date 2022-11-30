@@ -26,5 +26,15 @@ export const Style = {
         padding: 10px;
         margin-right: 20px;
     `,
+    SearchContainer: styled.div`
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    padding: 5px;
+`,
+Input: styled.input`
+        border: none;
+    `,
     Option: styled.option``,
 };

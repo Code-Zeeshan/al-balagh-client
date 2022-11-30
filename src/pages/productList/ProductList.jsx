@@ -5,14 +5,16 @@ import Products from "../../components/products/Products";
 import Newsletter from "../../components/newsletter/Newsletter";
 import Footer from "../../components/footer/Footer";
 import { Style } from "./ProductList.styled";
+import { Search, ShoppingCartOutlined, Person, UpdateOutlined } from '@material-ui/icons';
+
 
 function ProductList() {
     return (
         <Style.Container>
             {/* <Announcement /> */}
             {/* <Style.Title>Dresses</Style.Title> */}
-            {/* <Style.FilterContainer>
-                <Style.Filter>
+            <Style.FilterContainer>
+                {/* <Style.Filter>
                     <Style.FilterText>Filter Products:</Style.FilterText>
                     <Style.Select>
                         <Style.Option disabled defaultValue>
@@ -43,8 +45,10 @@ function ProductList() {
                         <Style.Option>Price (asc)</Style.Option>
                         <Style.Option>Price (desc)</Style.Option>
                     </Style.Select>
-                </Style.Filter>
-            </Style.FilterContainer> */}
+                </Style.Filter> */}
+                <Style.SearchContainer><Style.Input></Style.Input><Search /></Style.SearchContainer>
+
+            </Style.FilterContainer>
             <Products />
             {/* <Newsletter /> */}
         </Style.Container>

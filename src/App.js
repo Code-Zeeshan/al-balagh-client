@@ -15,6 +15,8 @@ import {
 } from "react-router-dom";
 import UserAuth from "./components/common/UserAuth";
 import PersistLogin from "./components/common/PersistLogin";
+import Chat from "./pages/chat/Chat";
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="orders" element={<Order />} />
             <Route path="profile" element={<UserProfile />} />
+            <Route path="chat" element={<Chat />} />
             <Route path="products">
               <Route index element={<ProductList />} />
               <Route path=":productId" element={<Product />} />

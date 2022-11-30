@@ -11,9 +11,9 @@ import Register from '../register/Register'
 const Home = () => {
   return (
     <>
-      <Anouncemnet />
+      {/* <Anouncemnet /> */}
       <Slider />
-      <Newsletter />
+      {/* <Newsletter /> */}
     </>
   )
 }

@@ -8,6 +8,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { getCount } from "../../redux/cart/CartActions";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
+import Chat from "../../pages/chat/Chat";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -69,6 +70,11 @@ const Navbar = () => {
     e.preventDefault();
     navigate("/products/add");
   }
+  const goToChat = e => {
+    e.preventDefault();
+    navigate("/chat");
+  }
+
   const signOut = async () => {
     await logout();
     navigate('/login');
@@ -96,6 +102,7 @@ const Navbar = () => {
               <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
               {/* <select name="profile" id="profile">
                 <option onClick={(e) => goToProfile(e)} value="edit"><UpdateOutlined /></option>
                 <option onClick={signOut} value="logout">Logout</option>

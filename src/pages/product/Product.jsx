@@ -62,11 +62,11 @@ const Product = () => {
           <Style.Image src={product.imageURL} />
         </Style.ImgContainer>
         <Style.InfoContainer>
-          <Style.Title>{product.title}</Style.Title>
+          <Style.Title><b>{product.title}</b></Style.Title>
           <Style.Desc>
             {product.desc}
           </Style.Desc>
-          <Style.Price>{product.price} PKR</Style.Price>
+          <Style.Price><b>{product.price} PKR</b></Style.Price>
           <Style.FilterContainer>
             {/* <Style.Filter>
               <Style.FilterTitle>Color</Style.FilterTitle>

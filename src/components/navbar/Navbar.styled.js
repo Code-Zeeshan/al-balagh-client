@@ -18,15 +18,15 @@ export const Style = {
         display: flex;
         align-items: center;
     `,
-    Center: styled.div`
-        flex: 1;
-        text-align: center;
-    `,
+    // Center: styled.div`
+    //     flex: 1;
+    //     text-align: center;
+    // `,
     Right: styled.div`
-        flex: 1;
+        flex: 2;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         ${mobile({ flex: 2, justifyContent: "center" })}
     `,
     Language: styled.span`
