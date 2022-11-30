@@ -21,6 +21,7 @@ const AddProduct = () => {
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [password, setPassword] = useState('');
+    const [oldPassword, setOldPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
@@ -61,7 +62,30 @@ const AddProduct = () => {
         }
     }, []);
 
-    const handleSubmit = async (e) => { }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const payload = {
+                name,
+                city,
+                address,
+                password,
+                oldPassword,
+                contact,
+            };
+            // const formData = new FormData();
+            // for (const key in payload) {
+            //     formData.append(key, payload[key]);
+            // }
+            const response = await axiosPrivate.axios.put("/users/updateOne", payload);
+            // setEmail('');
+            // setPassword('');
+            // navigate("/products");
+        } catch (err) {
+            console.error("err", err);
+        }
+    }
 
     return (
         <Style.Container>
@@ -109,6 +133,28 @@ const AddProduct = () => {
                         autoComplete="off"
                         onChange={(e) => setContact(e.target.value)}
                         value={contact}
+                        required
+                    />
+
+                    <Style.Input
+                        placeholder="Old Password"
+                        type="password"
+                        id="oldPassword"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        value={oldPassword}
+                        required
+                    />
+
+                    <Style.Input
+                        placeholder="New Password"
+                        type="password"
+                        id="password"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
                         required
                     />
                     <Style.Button onClick={(e) => handleSubmit(e)}>SAVE</Style.Button>
