@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Cart from './pages/cart/Cart';
 import Order from './pages/order/Order';
+import UserProfile from './pages/userProfile/UserProfile';
 import Layout from './components/Layout';
 import AddProduct from "./pages/addProduct/AddProduct";
 import {
@@ -24,6 +25,7 @@ function App() {
         <Route element={<UserAuth />}>
           <Route path="cart" element={<Cart />} />
           <Route path="orders" element={<Order />} />
+          <Route path="profile" element={<UserProfile />} />
           <Route path="products">
             <Route index element={<ProductList />} />
             <Route path=":productId" element={<Product />} />

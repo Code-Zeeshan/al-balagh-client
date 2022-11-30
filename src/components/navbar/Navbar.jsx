@@ -35,7 +35,7 @@ const Navbar = () => {
     return () => {
       isMounted = false;
     }
-  }, [cartCount, auth])
+  }, [cartCount, auth]);
 
   const goToRegister = e => {
     e.preventDefault();
@@ -45,6 +45,10 @@ const Navbar = () => {
   const goToLogin = e => {
     e.preventDefault();
     navigate("/login");
+  }
+  const goToProfile = e => {
+    e.preventDefault();
+    navigate("/profile");
   }
   const goToOrders = e => {
     e.preventDefault();
@@ -84,7 +88,7 @@ const Navbar = () => {
               <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
-              <Style.MenuItem onClick={(e) => goToLogin(e)}>PROFILE</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToCart(e)}>
                 <Badge overlap="rectangular" badgeContent={count.toString()} color="primary">
