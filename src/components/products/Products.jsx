@@ -33,13 +33,12 @@ const Products = () => {
       isMounted = false;
       controller.abort();
     }
-  }, [])
-
+  }, []);
 
   return (
     <Style.Container>
       {products.length > 0 && products.map((item) => (
-        <Product item={item} key={item._id} />
+        <Product item={item} key={item._id} setProducts={setProducts} />
       ))}
     </Style.Container>
   );
