@@ -14,6 +14,7 @@ import {
   Route
 } from "react-router-dom";
 import UserAuth from "./components/common/UserAuth";
+import PersistLogin from "./components/common/PersistLogin";
 
 function App() {
   return (
@@ -22,14 +23,16 @@ function App() {
         <Route index element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route element={<UserAuth />}>
-          <Route path="cart" element={<Cart />} />
-          <Route path="orders" element={<Order />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="products">
-            <Route index element={<ProductList />} />
-            <Route path=":productId" element={<Product />} />
-            <Route path="add" element={<AddProduct />} />
+        <Route element={<PersistLogin />}>
+          <Route element={<UserAuth />}>
+            <Route path="cart" element={<Cart />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="products">
+              <Route index element={<ProductList />} />
+              <Route path=":productId" element={<Product />} />
+              <Route path="add" element={<AddProduct />} />
+            </Route>
           </Route>
         </Route>
         {/* <Route path="about" element={<About />} />

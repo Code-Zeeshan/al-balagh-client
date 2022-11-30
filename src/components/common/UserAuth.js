@@ -6,7 +6,7 @@ const UserAuth = () => {
     const { auth } = useAuth();
     const location = useLocation();
     return (
-        auth?.email
+        auth?.accessToken
             ? <Outlet />
             // : auth?.accessToken //changed from user to accessToken to persist login after refresh
             //     ? <Navigate to="/unauthorized" state={{ from: location }} replace />

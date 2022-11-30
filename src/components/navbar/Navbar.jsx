@@ -1,15 +1,17 @@
 import { Badge } from "@material-ui/core";
 import { Style } from './Navbar.styled';
-import { Search, ShoppingCartOutlined } from '@material-ui/icons';
+import { Search, ShoppingCartOutlined, Person, UpdateOutlined } from '@material-ui/icons';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { getCount } from "../../redux/cart/CartActions";
 import useAuth from "../../hooks/useAuth";
+import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const logout = useLogout();
   const count = useSelector(state => state.cart.count);
   const [cartCount, setCartCount] = useState(0);
   const axiosPrivate = useAxiosPrivate();
@@ -67,6 +69,10 @@ const Navbar = () => {
     e.preventDefault();
     navigate("/products/add");
   }
+  const signOut = async () => {
+    await logout();
+    navigate('/login');
+  }
   return (
     <Style.Container>
       <Style.Wrapper>
@@ -90,11 +96,22 @@ const Navbar = () => {
               <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem>
+              {/* <select name="profile" id="profile">
+                <option onClick={(e) => goToProfile(e)} value="edit"><UpdateOutlined /></option>
+                <option onClick={signOut} value="logout">Logout</option>
+              </select> */}
               <Style.MenuItem onClick={(e) => goToCart(e)}>
                 <Badge overlap="rectangular" badgeContent={count.toString()} color="primary">
                   <ShoppingCartOutlined />
                 </Badge>
               </Style.MenuItem>
+              {/* <Style.Dropdown>jkjlks
+                <Style.DropdownContainer>
+                  <Style.DropdownContent>logout</Style.DropdownContent>
+                </Style.DropdownContainer>
+              </Style.Dropdown> */}
+              <Style.MenuItem onClick={signOut}>LOGOUT</Style.MenuItem>
+
             </>
           }
         </Style.Right>
