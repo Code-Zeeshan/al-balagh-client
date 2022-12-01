@@ -48,8 +48,13 @@ export const Style = {
     width: 40%;
     border: none;
     padding: 15px 20px;
-    background-color: teal;
+    background-color: black;
     color: white;
     cursor: pointer;
 `,
+    Error: styled.small`
+        height: 0;
+        color: red;
+        align-self: center;
+    `
 }
