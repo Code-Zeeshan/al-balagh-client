@@ -42,9 +42,9 @@ const Product = ({ item, setProducts }) => {
             <Style.Circle />
             <Style.Image src={item.imageURL} />
             <Style.Info>
-                <Style.Icon>
+                {/* <Style.Icon>
                     <ShoppingCartOutlined />
-                </Style.Icon>
+                </Style.Icon> */}
                 <Style.Icon onClick={(e) => goToProductDetail(e)}>
                     <InfoOutlined />
                 </Style.Icon>

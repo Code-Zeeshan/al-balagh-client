@@ -15,12 +15,12 @@ export const userScehma = yup.object().shape({
     password: yup
         .string()
         .required("Password is required")
-        .min(6, "The password must be six characters")
+        .min(8, "The password must be 8 characters")
         .max(14, "The password must be max 14 characters"),
     confirmPassword: yup
         .string()
         .required("Password is required")
-        .min(6, "The password must be 6 characters")
+        .min(8, "The password must be 8 characters")
         .max(14, "The password must be max 14 characters")
         .oneOf([yup.ref("password")], "Your passwords do not match."),
 });

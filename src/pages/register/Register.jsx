@@ -87,6 +87,7 @@ const Register = () => {
                     )}
 
                     <Style.Input placeholder="password"
+                        type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         {...register("password")}
                     />
@@ -95,7 +96,7 @@ const Register = () => {
                     )}
 
                     <Style.Input placeholder="confirm password"
-
+                        type="password"
                         {...register("confirmPassword")}
                     />
                     {errors.confirmPassword && (

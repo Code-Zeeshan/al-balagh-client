@@ -55,4 +55,9 @@ export const Style = {
     text-decoration: underline;
     cursor: pointer;
 `,
+    Error: styled.small`
+        /* height: 0; */
+        color: red;
+        /* align-self: center; */
+    `
 }

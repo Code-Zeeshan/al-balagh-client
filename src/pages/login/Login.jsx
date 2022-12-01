@@ -3,10 +3,19 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "../../context/AuthProvider";
 import authService from "../../services/auth.service";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userScehma } from "../../validations/userValidation";
 
 
 const Login = () => {
+    const { register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(userScehma),
+    });
     const { setAuth } = useAuth();
     const navigate = useNavigate();
     const userRef = useRef();
@@ -17,24 +26,24 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+    // useEffect(() => {
+    //     userRef.current.focus();
+    // }, [])
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [email, password])
+    // useEffect(() => {
+    //     setErrMsg('');
+    // }, [email, password])
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const submitForm = async (data) => {
 
         try {
             const response = await authService.login(
-                { email, password }
+                // { email, password }
+                data
             );
-            setEmail('');
-            setPassword('');
+            // setEmail('');
+            // setPassword('');
             const accessToken = response.data.accessToken;
             if (accessToken) {
                 const role = response.data.role;
@@ -60,28 +69,35 @@ const Login = () => {
         <Style.Container>
             <Style.Wrapper>
                 <Style.Title>SIGN IN</Style.Title>
-                <Style.Form>
+                <Style.Form onSubmit={handleSubmit(submitForm)}>
                     <Style.Input
                         placeholder="email"
                         type="text"
                         id="email"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
+                        // autoComplete="off"
+                        // onChange={(e) => setEmail(e.target.value)}
+                        // value={email}
+                        {...register("email")}
+                        // required
                     />
+                    {errors.email && (
+                        <Style.Error>{errors.email.message}</Style.Error>
+                    )}
                     <Style.Input
                         placeholder="password"
                         type="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
+                        // id="password"
+                        // onChange={(e) => setPassword(e.target.value)}
+                        // value={password}
+                        {...register("password")}
+                        // required
                     />
-                    <Style.Button onClick={(e) => handleSubmit(e)}>LOGIN</Style.Button>
-                    <Style.Link>DO NOT YOU REMEMBER THE PASSWORD?</Style.Link>
-                    <Style.Link>CREATE A NEW ACCOUNT</Style.Link>
+                    {errors.password && (
+                        <Style.Error>{errors.password.message}</Style.Error>
+                    )}
+                    <Style.Button>LOGIN</Style.Button>
+                    {/* <Style.Link>DO NOT YOU REMEMBER THE PASSWORD?</Style.Link> */}
+                    <Link to="/register"> CREATE A NEW ACCOUNT</Link>
                 </Style.Form>
             </Style.Wrapper>
         </Style.Container>

@@ -29,6 +29,7 @@ export const Style = {
 
     Form: styled.form`
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
 `,
 
@@ -55,4 +56,9 @@ export const Style = {
     text-decoration: underline;
     cursor: pointer;
 `,
+    Error: styled.small`
+        /* height: 0; */
+        color: red;
+        /* align-self: center; */
+    `
 }

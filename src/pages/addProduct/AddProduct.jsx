@@ -3,9 +3,17 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import productService from "../../services/product.service";
 import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { productSchema } from "../../validations/productValidation";
 
 const AddProduct = () => {
+    const { register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(productSchema),
+    });
     const navigate = useNavigate();
     const userRef = useRef();
     const errRef = useRef();
@@ -21,41 +29,26 @@ const AddProduct = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+    // useEffect(() => {
+    //     userRef.current.focus();
+    // }, [])
 
     // useEffect(() => {
     //     setErrMsg('');
     // }, [email, password])
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const submitForm = async (data) => {
         try {
-            // const response = await productService.addOne({
-            //     title,
-            //     desc,
-            //     img,
-            //     size,
-            //     color,
-            //     price,
-            //     quantity
-            // });
             const payload = {
-                title,
-                desc,
-                img,
-                size,
-                color,
-                price,
-                quantity
+                ...data,
+                img
             };
             const formData = new FormData();
-            for (const key in payload) {
+            for (const key in data) {
                 formData.append(key, payload[key]);
             }
+            formData.append("img", img);
             const response = await axiosPrivate.axios.post("/products/addOne", formData);
             // setEmail('');
             // setPassword('');
@@ -69,82 +62,77 @@ const AddProduct = () => {
         <Style.Container>
             <Style.Wrapper>
                 <Style.Title>ADD PRODUCT</Style.Title>
-                <Style.Form>
+                <Style.Form onSubmit={handleSubmit(submitForm)}>
                     <Style.Input
                         placeholder="title"
                         type="text"
                         id="title"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                        required
-                    />
+                        {...register("title")}
 
+                    />
+                    {errors.title && (
+                        <Style.Error>{errors.title.message}</Style.Error>
+                    )}
                     <Style.Input
                         placeholder="desc"
                         type="text"
                         id="desc"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setDesc(e.target.value)}
-                        value={desc}
-                        required
+                        {...register("desc")}
+
                     />
+                    {errors.title && (
+                        <Style.Error>{errors.title.message}</Style.Error>
+                    )}
 
                     <Style.Input
                         placeholder="size"
                         type="text"
                         id="size"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setSize(e.target.value)}
-                        value={size}
-                        required
+                        {...register("size")}
+
                     />
+                    {errors.desc && (
+                        <Style.Error>{errors.desc.message}</Style.Error>
+                    )}
 
                     <Style.Input
                         placeholder="color"
                         type="text"
                         id="color"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setColor(e.target.value)}
-                        value={color}
-                        required
+                        {...register("color")}
+
                     />
+                    {errors.color && (
+                        <Style.Error>{errors.color.message}</Style.Error>
+                    )}
 
                     <Style.Input
                         placeholder="price"
                         type="number"
                         id="price"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setPrice(e.target.value)}
-                        value={price}
-                        required
-                    />
+                        {...register("price")}
 
+                    />
+                    {errors.price && (
+                        <Style.Error>{errors.price.message}</Style.Error>
+                    )}
                     <Style.Input
                         placeholder="quantity"
                         type="number"
                         id="quantity"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setQuantity(e.target.value)}
-                        value={quantity}
-                        required
+                        {...register("quantity")}
+
                     />
+                    {errors.quantity && (
+                        <Style.Error>{errors.quantity.message}</Style.Error>
+                    )}
                     <Style.Input
                         placeholder="img"
                         type="file"
                         id="img"
-                        ref={userRef}
-                        autoComplete="off"
                         onChange={(e) => setImg(e.target.files[0])}
-                        required
                     />
-                    <Style.Button onClick={(e) => handleSubmit(e)}>SAVE</Style.Button>
+                    <Style.Button>SAVE</Style.Button>
                 </Style.Form>
             </Style.Wrapper>
         </Style.Container>
