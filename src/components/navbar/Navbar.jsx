@@ -99,9 +99,8 @@ const Navbar = () => {
             <>
               <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
-              <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
-              <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem>
+              {/* <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem> */}
               <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
               {/* <select name="profile" id="profile">
                 <option onClick={(e) => goToProfile(e)} value="edit"><UpdateOutlined /></option>
@@ -124,10 +123,10 @@ const Navbar = () => {
         </Style.Right>
         {auth.role === 7260 &&
           <Style.Right>
-            <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>
             <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
             <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
             <Style.MenuItem onClick={(e) => goToLogin(e)}>ORDER</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
           </Style.Right>
         }
       </Style.Wrapper>
