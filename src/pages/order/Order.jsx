@@ -16,7 +16,6 @@ const Order = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         let isMounted = true;
         const getOrders = async () => {
@@ -36,6 +35,20 @@ const Order = () => {
             isMounted = false;
         }
     }, []);
+
+    const sendEmail = async (data, state) => {
+        try {
+            const payload = {
+                name: data._id.name,
+                email: data._id.email,
+                state
+            }
+            const response = await axiosPrivate.axios.post("/orders/dispatchEmail", payload);
+        } catch (err) {
+            console.error("err", err);
+        }
+    }
+
 
     return (
         <Style.Container>
@@ -83,11 +96,11 @@ const Order = () => {
                                 ))}
                                 <Style.Hr />
                                 {/* <Style.LastRow> */}
-                                <div style={{ display: "flex", width:"100%" }}>
+                                <div style={{ display: "flex", width: "100%" }}>
                                     <h3>Total : PKR {item.total}</h3>
-                                    <div style={{ display: "flex", width:"100%", justifyContent: "center", alignItems: "center" }}>
-                                        <Style.Button >ACCEPT</Style.Button>
-                                        <Style.Button >REJECT</Style.Button>
+                                    <div style={{ display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
+                                        <Style.Button onClick={() => sendEmail(item, "Accepted")}>ACCEPT</Style.Button>
+                                        <Style.Button onClick={() => sendEmail(item, "Rejected")} >REJECT</Style.Button>
                                     </div>
                                 </div>
                                 {/* </Style.LastRow> */}

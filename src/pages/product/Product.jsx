@@ -47,7 +47,7 @@ const Product = () => {
       const response = await axiosPrivate.axios.post("/carts/addOne", { productId: product._id, count });
       const { itemCount } = response.data;
       if (itemCount)
-        dispatch(getCount(itemCount));  
+        dispatch(getCount(itemCount));
 
     } catch (err) {
       console.error("err", err);
@@ -99,6 +99,7 @@ const Product = () => {
               />
             </Style.AmountContainer>
             <Style.Button onClick={(e) => addToCart(e)}>ADD TO CART</Style.Button>
+            <Style.Button onClick={() => navigate("/addAccessory")}>CUSTOMIZE</Style.Button>
           </Style.AddContainer>
         </Style.InfoContainer>
       </Style.Wrapper>

@@ -9,6 +9,7 @@ import Order from './pages/order/Order';
 import UserProfile from './pages/userProfile/UserProfile';
 import Layout from './components/Layout';
 import AddProduct from "./pages/addProduct/AddProduct";
+import AddAccessory from "./pages/accessory/AddAccessory";
 import {
   Routes,
   Route
@@ -31,6 +32,7 @@ function App() {
             <Route path="orders" element={<Order />} />
             <Route path="profile" element={<UserProfile />} />
             <Route path="chat" element={<Chat />} />
+            <Route path="addAccessory" element={<AddAccessory />} />
             <Route path="products">
               <Route index element={<ProductList />} />
               <Route path=":productId" element={<Product />} />

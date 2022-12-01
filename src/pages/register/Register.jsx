@@ -28,7 +28,7 @@ const Register = () => {
         navigate("/products");
     }
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         // console.log("ran", data);
         if (data.name &&
             data.email &&
@@ -37,7 +37,7 @@ const Register = () => {
             data.address &&
             data.city
         ) {
-            const response = authService.register(data);
+            const response = await authService.register(data);
             goToProducts();
         }
     };
