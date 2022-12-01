@@ -1,6 +1,6 @@
 import { Badge } from "@material-ui/core";
 import { Style } from './Navbar.styled';
-import { Search, ShoppingCartOutlined, Person, UpdateOutlined } from '@material-ui/icons';
+import { Search, ShoppingCartOutlined, Person, UpdateOutlined, Height } from '@material-ui/icons';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -83,7 +83,9 @@ const Navbar = () => {
     <Style.Container>
       <Style.Wrapper>
         <Style.Left>
-          <Style.Logo>Al Balagh</Style.Logo>
+          {/* <Style.Logo>Al Balagh</Style.Logo>
+           */}
+           <img style={{height:"40px"}} src="https://img.freepik.com/free-photo/excited-african-woman-holding-shopping-bags-mobile-phone_171337-14029.jpg?w=2000" alt="" />
           {/* <Style.Language>
             En
           </Style.Language>

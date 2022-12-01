@@ -45,9 +45,10 @@ export const Style = {
         border: none;
       ${mobile({ width: "50px" })}
     `,
-    Logo: styled.h1`
-        font-weight: bold;
-        ${mobile({ fontSize: "24px" })}
+    Logo: styled.img`
+    background-color: black;
+        /* font-weight: bold; */
+        /* ${mobile({ fontSize: "24px" })} */
     `,
     MenuItem: styled.div`
         font-size: 14px;
