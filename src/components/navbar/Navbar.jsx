@@ -85,7 +85,7 @@ const Navbar = () => {
         <Style.Left>
           {/* <Style.Logo>Al Balagh</Style.Logo>
            */}
-           <img style={{height:"40px"}} src="https://img.freepik.com/free-photo/excited-african-woman-holding-shopping-bags-mobile-phone_171337-14029.jpg?w=2000" alt="" />
+           <img style={{height:"40px"}} src="img/al-balagh-logo.png" alt="" />
           {/* <Style.Language>
             En
           </Style.Language>
@@ -126,9 +126,10 @@ const Navbar = () => {
         {auth.role === 7260 &&
           <Style.Right>
             <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
-            <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
-            <Style.MenuItem onClick={(e) => goToLogin(e)}>ORDER</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
+            <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDER</Style.MenuItem>
             <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
+            <Style.MenuItem onClick={signOut}>LOGOUT</Style.MenuItem>
           </Style.Right>
         }
       </Style.Wrapper>
