@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { userScehma } from "../../validations/userValidation";
+import { loginScehma } from "../../validations/loginValidation";
 
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(userScehma),
+        resolver: yupResolver(loginScehma),
     });
     const { setAuth } = useAuth();
     const navigate = useNavigate();
@@ -36,10 +36,8 @@ const Login = () => {
 
 
     const submitForm = async (data) => {
-
         try {
             const response = await authService.login(
-                // { email, password }
                 data
             );
             // setEmail('');
@@ -47,7 +45,7 @@ const Login = () => {
             const accessToken = response.data.accessToken;
             if (accessToken) {
                 const role = response.data.role;
-                setAuth({ email, password, role, accessToken });
+                setAuth({ ...data, role, accessToken });
                 navigate("/products");
             }
         } catch (err) {
@@ -70,34 +68,22 @@ const Login = () => {
             <Style.Wrapper>
                 <Style.Title>SIGN IN</Style.Title>
                 <Style.Form onSubmit={handleSubmit(submitForm)}>
-                    <Style.Input
-                        placeholder="email"
-                        type="text"
-                        id="email"
-                        // autoComplete="off"
-                        // onChange={(e) => setEmail(e.target.value)}
-                        // value={email}
+
+                    <Style.Input placeholder="email"
                         {...register("email")}
-                        // required
                     />
                     {errors.email && (
                         <Style.Error>{errors.email.message}</Style.Error>
                     )}
-                    <Style.Input
-                        placeholder="password"
+
+                    <Style.Input placeholder="password"
                         type="password"
-                        // id="password"
-                        // onChange={(e) => setPassword(e.target.value)}
-                        // value={password}
                         {...register("password")}
-                        // required
                     />
                     {errors.password && (
                         <Style.Error>{errors.password.message}</Style.Error>
                     )}
                     <Style.Button>LOGIN</Style.Button>
-                    {/* <Style.Link>DO NOT YOU REMEMBER THE PASSWORD?</Style.Link> */}
-                    <Link to="/register"> CREATE A NEW ACCOUNT</Link>
                 </Style.Form>
             </Style.Wrapper>
         </Style.Container>
