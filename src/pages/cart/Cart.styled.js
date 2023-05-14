@@ -3,12 +3,15 @@ import { mobile } from "../../components/common/responsive.styled";
 
 export const Style = {
     Container: styled.div`
-        background-color: black;
         color: white;
-    `,
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        `,
 
     Wrapper: styled.div`
-    padding: 20px;
+        background-color: black;    
+        padding: 15px;
     `,
 
     Title: styled.h1`

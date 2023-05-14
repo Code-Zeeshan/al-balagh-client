@@ -25,7 +25,7 @@ const Register = () => {
     const [city, setCity] = useState("");
     // const [password, setPassword] = useState("");
     const goToProducts = () => {
-        navigate("/products");
+        navigate("/login");
     }
 
     const submitForm = async (data) => {

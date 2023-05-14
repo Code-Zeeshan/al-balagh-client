@@ -7,6 +7,7 @@ export const API_URL = Object.freeze({
     }),
     USER: Object.freeze({
         ADD_ONE: "/users/addOne",
+        FIND_MANY: "/users/findMany",
         UPDATE_ONE: "/users/updateOne",
     }),
     PRODUCT: Object.freeze({

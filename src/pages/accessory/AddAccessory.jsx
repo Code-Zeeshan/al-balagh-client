@@ -36,7 +36,6 @@ const AddAccessory = () => {
 
 
     const submitForm = async (data) => {
-        console.log(data);
     }
 
     return (

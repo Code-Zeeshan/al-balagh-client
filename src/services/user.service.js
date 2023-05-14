@@ -5,5 +5,8 @@ class UserService {
     async addOne() {
         return await createAxiosInstance(API_URL.USER.ADD_ONE, "GET");
     }
+    async findMany() {
+        return await createAxiosInstance(API_URL.USER.FIND_MANY, "GET");
+    }
 }
 export default new UserService();

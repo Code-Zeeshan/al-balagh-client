@@ -42,10 +42,8 @@ const Login = () => {
             );
             // setEmail('');
             // setPassword('');
-            const accessToken = response.data.accessToken;
-            if (accessToken) {
-                const role = response.data.role;
-                setAuth({ ...data, role, accessToken });
+            if (response.status === 200) {
+                setAuth({ ...response.data });
                 navigate("/products");
             }
         } catch (err) {

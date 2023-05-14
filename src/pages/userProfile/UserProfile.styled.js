@@ -37,6 +37,7 @@ export const Style = {
     min-width: 40%;
     margin: 10px 0;
     padding: 10px;
+    border: 0.1px solid black;
 `,
 
     Button: styled.button`

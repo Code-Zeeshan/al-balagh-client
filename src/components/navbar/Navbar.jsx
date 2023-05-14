@@ -8,7 +8,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { getCount } from "../../redux/cart/CartActions";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
-import Chat from "../../pages/chat/Chat";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -83,55 +82,32 @@ const Navbar = () => {
     <Style.Container>
       <Style.Wrapper>
         <Style.Left>
-          {/* <Style.Logo>Al Balagh</Style.Logo>
-           */}
-           <img style={{height:"40px"}} src="img/al-balagh-logo.png" alt="" />
-          {/* <Style.Language>
-            En
-          </Style.Language>
-          <Style.SearchContainer><Style.Input></Style.Input><Search /></Style.SearchContainer> */}
+          <img style={{ height: "40px" }} src="img/al-balagh-logo.png" alt="" />
         </Style.Left>
-        {/* <Style.Center>
-          <Style.Logo>Shopy</Style.Logo>
-        </Style.Center> */}
         <Style.Right>
           <Style.MenuItem onClick={(e) => goToRegister(e)}>REGISTER</Style.MenuItem>
-          <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>
+          {!auth.role && <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>}
+          <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
+          <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
           {auth.role === 2345 &&
             <>
-              <Style.MenuItem onClick={(e) => goToLogin(e)}>CHAT</Style.MenuItem>
-              <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
-              {/* <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDERS</Style.MenuItem> */}
-              <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
-              {/* <select name="profile" id="profile">
-                <option onClick={(e) => goToProfile(e)} value="edit"><UpdateOutlined /></option>
-                <option onClick={signOut} value="logout">Logout</option>
-              </select> */}
               <Style.MenuItem onClick={(e) => goToCart(e)}>
                 <Badge overlap="rectangular" badgeContent={count.toString()} color="primary">
                   <ShoppingCartOutlined />
                 </Badge>
               </Style.MenuItem>
-              {/* <Style.Dropdown>jkjlks
-                <Style.DropdownContainer>
-                  <Style.DropdownContent>logout</Style.DropdownContent>
-                </Style.DropdownContainer>
-              </Style.Dropdown> */}
-              <Style.MenuItem onClick={signOut}>LOGOUT</Style.MenuItem>
 
             </>
           }
+          {auth.role === 7260 &&
+            <>
+              <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDER</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
+            </>
+          }
+          {auth.accessToken && <Style.MenuItem onClick={signOut}>LOGOUT</Style.MenuItem>}
         </Style.Right>
-        {auth.role === 7260 &&
-          <Style.Right>
-            <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
-            <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
-            <Style.MenuItem onClick={(e) => goToOrders(e)}>ORDER</Style.MenuItem>
-            <Style.MenuItem onClick={(e) => goToAddProducts(e)}>ADD PRODUCTS</Style.MenuItem>
-            <Style.MenuItem onClick={signOut}>LOGOUT</Style.MenuItem>
-          </Style.Right>
-        }
       </Style.Wrapper>
     </Style.Container>
   )

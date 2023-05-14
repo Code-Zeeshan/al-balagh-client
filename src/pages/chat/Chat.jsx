@@ -1,111 +1,89 @@
-import React, { useRef, useState } from "react";
-import ChatBox from "../../components/ChatBox/ChatBox";
-import Conversation from "../../components/Coversation/Conversation";
-import LogoSearch from "../../components/LogoSearch/LogoSearch";
-import NavIcons from "../../components/NavIcons/NavIcons";
-import "./Chat.css";
-import { useEffect } from "react";
-// import { userChats } from "../../api/ChatRequests";
-import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
+import React from 'react'
+import ChatMessageList from "../../components/chatMessageList/ChatMessageList";
+import ChatConversation from "../../components/chatConversation/ChatConversation";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-const Chat = () => {
-  const dispatch = useDispatch();
-  const socket = useRef();
-  const { auth: user } = useAuth();
-  // const { user } = useSelector((state) => state.authReducer?.authData);
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-  const [chats, setChats] = useState([]);
-  const [onlineUsers, setOnlineUsers] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
-  const [sendMessage, setSendMessage] = useState(null);
-  const [receivedMessage, setReceivedMessage] = useState(null);
-  // Get the chat in chat section
-  // useEffect(() => {
-  //   const getChats = async () => {
-  //     try {
-  //       const { data } = await userChats(user._id);
-  //       setChats(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getChats();
-  // }, [user._id]);
+export const Chat = () => {
+    const { auth } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const axiosPrivate = useAxiosPrivate();
+    const [users, setUsers] = useState([]);
+    const [conversations, setConversations] = useState([]);
+    const [searchResult, setSearchResult] = useState(users);
+    const [chatPartnerId, setChatPartnerId] = useState("");
 
-  // Connect to Socket.io
-  // useEffect(() => {
-  //   socket.current = io("ws://localhost:8800");
-  //   socket.current.emit("new-user-add", user._id);
-  //   socket.current.on("get-users", (users) => {
-  //     setOnlineUsers(users);
-  //   });
-  // }, [user]);
+    useEffect(() => {
+        let isMounted = true;
+        // const controller = new AbortController();
+        getUsers();
+        return () => {
+            isMounted = false;
+            // controller.abort();
+        }
+    }, []);
 
-  // Send Message to socket server
-  // useEffect(() => {
-  //   if (sendMessage!==null) {
-  //     socket.current.emit("send-message", sendMessage);}
-  // }, [sendMessage]);
+    const getUsers = async () => {
+        try {
+            const filter = {};
+            if (auth.role === 7260) {
+                filter._id = { $ne: auth._id };
+            }
+            else {
+                filter.role = 7260;
+            }
+            const response = await axiosPrivate.axios.post("/users/findMany", {
+                filter,
+                project: {
+                    name: 1,
+                    updatedAt: 1,
+                    img: 1
+                }
+            });
+            setUsers(response.data);
+            setSearchResult(response.data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
+    const getConversation = async (chatId) => {
+        if (chatId) {
+            const response = await axiosPrivate.axios.post("/chats/findOne", {
+                filter: {
+                    _id: chatId
+                },
+                project: {}
+            });
+            setConversations(response.data);
+        }
+    }
 
-  // Get the message from socket server
-  // useEffect(() => {
-  //   socket.current.on("recieve-message", (data) => {
-  //     console.log(data)
-  //     setReceivedMessage(data);
-  //   }
+    const filterUsers = (name = "") => {
+        if (name.trim() === "") setSearchResult(users);
+        else
+            setSearchResult(users.filter(user => user.name.match(new RegExp(name.trim(), "i"))));
+    }
+    return (
+        <div className="container mx-auto shadow-lg rounded-lg">
+            <div className="border-b-2 py-4 px-2">
+                <input
+                    type="text"
+                    placeholder="search"
+                    className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
+                    onChange={(e) => filterUsers(e.target.value)}
 
-  //   );
-  // }, []);
-
-
-  const checkOnlineStatus = (chat) => {
-    const chatMember = chat.members.find((member) => member !== user._id);
-    const online = onlineUsers.find((user) => user.userId === chatMember);
-    return online ? true : false;
-  };
-
-  return (
-    <div className="Chat">
-      {/* Left Side */}
-      <div className="Left-side-chat">
-        <LogoSearch />
-        <div className="Chat-container">
-          <h2>Chats</h2>
-          <div className="Chat-list">
-            {chats.map((chat) => (
-              <div
-                onClick={() => {
-                  setCurrentChat(chat);
-                }}
-              >
-                <Conversation
-                  data={chat}
-                  currentUser={user._id}
-                  online={checkOnlineStatus(chat)}
                 />
-              </div>
-            ))}
-          </div>
+            </div>
+            <div className="px-5 py-5 flex flex-row justify-between bg-white bg-white border-t-2">
+                <ChatMessageList searchResult={searchResult} getConversation={getConversation}
+                    setChatPartnerId={setChatPartnerId} />
+                {chatPartnerId && <ChatConversation conversations={conversations} setConversations={setConversations} chatPartnerId={chatPartnerId} />}
+            </div>
         </div>
-      </div>
-
-      {/* Right Side */}
-
-      <div className="Right-side-chat">
-        <div style={{ width: "20rem", alignSelf: "flex-end" }}>
-          <NavIcons />
-        </div>
-        <ChatBox
-          chat={currentChat}
-          currentUser={user._id}
-          setSendMessage={setSendMessage}
-          receivedMessage={receivedMessage}
-        />
-      </div>
-    </div>
-  );
-};
-
-export default Chat;
+    )
+}
+export default Chat
