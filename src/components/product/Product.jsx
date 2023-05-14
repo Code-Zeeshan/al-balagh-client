@@ -12,7 +12,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 
 
-const Product = ({ item, setProducts }) => {
+const Product = ({ item, setSearchResult }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const axiosPrivate = useAxiosPrivate();
@@ -29,7 +29,7 @@ const Product = ({ item, setProducts }) => {
         try {
             const response = await axiosPrivate.axios.delete("/products/deleteOne", { params: { params: item._id } });
             if (response.status === 200) {
-                setProducts(prev => [...prev.filter(ele => ele._id != item._id)]);
+                setSearchResult(prev => [...prev.filter(ele => ele._id != item._id)]);
             }
             navigate("/products");
         } catch (err) {

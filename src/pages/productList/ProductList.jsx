@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Navbar from "../../components/navbar/Navbar";
 import Announcement from "../../components/announcement/Announcement";
 import Products from "../../components/products/Products";
@@ -9,6 +9,8 @@ import { Search, ShoppingCartOutlined, Person, UpdateOutlined } from '@material-
 
 
 function ProductList() {
+    const [title, setTitle] = useState("");
+
     return (
         <Style.Container>
             {/* <Announcement /> */}
@@ -46,10 +48,16 @@ function ProductList() {
                         <Style.Option>Price (desc)</Style.Option>
                     </Style.Select>
                 </Style.Filter> */}
-                <Style.SearchContainer><Style.Input></Style.Input><Search /></Style.SearchContainer>
+                <Style.SearchContainer>   <input
+                    type="text"
+                    placeholder="search"
+                    className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                /></Style.SearchContainer>
 
             </Style.FilterContainer>
-            <Products />
+            <Products title={title} />
             {/* <Newsletter /> */}
         </Style.Container>
     )
