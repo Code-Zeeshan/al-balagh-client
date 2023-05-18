@@ -93,14 +93,14 @@ const AddProduct = () => {
                 <Style.Title>User Profile</Style.Title>
                 <Style.Form>
                     <div className="flex flex-column">
-                        <div className="flex justify-between items-center gap-4">
+                        {/* <div className="flex justify-between items-center gap-4">
                             <label htmlFor="">Name</label>
                             <label htmlFor="">Address</label>
                             <label htmlFor="">City</label>
                             <label htmlFor="">Contact</label>
                             <label htmlFor="">Old Password</label>
                             <label htmlFor="">New Password</label>
-                        </div>
+                        </div> */}
                         <div>
                             <Style.Input
                                 placeholder="Name"
