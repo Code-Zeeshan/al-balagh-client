@@ -29,6 +29,7 @@ export const Style = {
 
     Form: styled.form`
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 `,
 

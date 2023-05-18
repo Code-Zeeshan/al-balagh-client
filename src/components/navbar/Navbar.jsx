@@ -78,20 +78,31 @@ const Navbar = () => {
     await logout();
     navigate('/login');
   }
+  const goToHomePage = async () => {
+    navigate('/');
+  }
   return (
     <Style.Container>
       <Style.Wrapper>
         <Style.Left>
-          <img style={{ height: "40px" }} src="img/al-balagh-logo.png" alt="" />
+          <img style={{ height: "40px", cursor: "pointer" }} onClick={(e) => goToHomePage(e)} src="al-balagh-logo.jpeg" alt="" />
         </Style.Left>
         <Style.Right>
-          <Style.MenuItem onClick={(e) => goToRegister(e)}>REGISTER</Style.MenuItem>
-          {!auth.role && <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>}
-          <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
-          <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
+          {!auth.role &&
+            <>
+              <Style.MenuItem onClick={(e) => goToRegister(e)}>REGISTER</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToLogin(e)}>LOGIN</Style.MenuItem>
+            </>
+          }
+          {auth.role &&
+            <>
+              <Style.MenuItem onClick={(e) => goToProducts(e)}>PRODUCTS</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToChat(e)}>CHAT</Style.MenuItem>
+              <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
+            </>
+          }
           {auth.role === 2345 &&
             <>
-              <Style.MenuItem onClick={(e) => goToProfile(e)}>PROFILE</Style.MenuItem>
               <Style.MenuItem onClick={(e) => goToCart(e)}>
                 <Badge overlap="rectangular" badgeContent={count.toString()} color="primary">
                   <ShoppingCartOutlined />
