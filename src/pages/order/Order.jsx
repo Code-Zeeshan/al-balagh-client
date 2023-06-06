@@ -44,6 +44,7 @@ const Order = () => {
                 state
             }
             const response = await axiosPrivate.axios.post("/orders/dispatchEmail", payload);
+            navigate("/products");
         } catch (err) {
             console.error("err", err);
         }
