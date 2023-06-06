@@ -91,91 +91,88 @@ const AddProduct = () => {
         <Style.Container>
             <Style.Wrapper>
                 <Style.Title>User Profile</Style.Title>
-                <Style.Form>
-                    <div className="flex flex-column">
-                        {/* <div className="flex justify-between items-center gap-4">
-                            <label htmlFor="">Name</label>
-                            <label htmlFor="">Address</label>
-                            <label htmlFor="">City</label>
-                            <label htmlFor="">Contact</label>
-                            <label htmlFor="">Old Password</label>
-                            <label htmlFor="">New Password</label>
-                        </div> */}
-                        <div>
-                            <Style.Input
-                                placeholder="Name"
-                                type="text"
-                                id="title"
-                                ref={userRef}
-                                autoComplete="off"
-                                onChange={(e) => setName(e.target.value)}
-                                value={name}
-                                required
-                            />
-                            <div className="flex justify-between items-center gap-4">
-                                <Style.Input
-                                    placeholder="Address"
-                                    type="text"
-                                    id="Address"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    value={address}
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-between items-center gap-4">
-                                <Style.Input
-                                    placeholder="City"
-                                    type="text"
-                                    id="city"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setCity(e.target.value)}
-                                    value={city}
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-between items-center gap-4">
-                                <Style.Input
-                                    placeholder="Contact"
-                                    type="text"
-                                    id="contact"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setContact(e.target.value)}
-                                    value={contact}
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-between items-center gap-4">
-                                <Style.Input
-                                    placeholder="Old Password"
-                                    type="password"
-                                    id="oldPassword"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setOldPassword(e.target.value)}
-                                    value={oldPassword}
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-between items-center gap-4">
-                                <Style.Input
-                                    placeholder="New Password"
-                                    type="password"
-                                    id="password"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    value={password}
-                                    required
-                                />
-                            </div>
-                        </div>
+                <div className="w-full flex-col justify-between items-center gap-4">
+                    <div className="w-50 flex justify-between items-center">
+                        <label className="1/3">Name</label>
+                        <Style.Input
+                            placeholder="Name"
+                            type="text"
+                            id="title"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            required
+                        />
                     </div>
-                    <Style.Button onClick={(e) => handleSubmit(e)}>SAVE</Style.Button>
-                </Style.Form>
+                    <div className="w-50 flex justify-between items-center">
+                        <label>Address</label>
+
+                        <Style.Input
+                            placeholder="Address"
+                            type="text"
+                            id="Address"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setAddress(e.target.value)}
+                            value={address}
+                            required
+                        />
+                    </div>
+                    <div className="w-50 flex justify-between items-center">
+                        <label>City</label>
+                        <Style.Input
+                            placeholder="City"
+                            type="text"
+                            id="city"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setCity(e.target.value)}
+                            value={city}
+                            required
+                        />
+                    </div>
+                    <div className="w-50 flex justify-between items-center">
+                        <label>Contact</label>
+                        <Style.Input
+                            placeholder="Contact"
+                            type="text"
+                            id="contact"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setContact(e.target.value)}
+                            value={contact}
+                            required
+                        />
+                    </div>
+                    <div className="w-50 flex justify-between items-center">
+                        <label>Old Password</label>
+                        <Style.Input
+                            placeholder="Old Password"
+                            type="password"
+                            id="oldPassword"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setOldPassword(e.target.value)}
+                            value={oldPassword}
+                            required
+                        />
+                    </div>
+                    <div className="w-50 flex justify-between items-center gap-x-8">
+                        <label>New Password</label>
+                        <Style.Input
+                            placeholder="New Password"
+                            type="password"
+                            id="password"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            required
+                        />
+                    </div>
+                </div>
+                <Style.Button onClick={(e) => handleSubmit(e)}>SAVE</Style.Button>
             </Style.Wrapper>
         </Style.Container>
     );

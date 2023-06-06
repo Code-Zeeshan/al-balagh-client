@@ -17,8 +17,8 @@ export const Style = {
 `,
 
     Wrapper: styled.div`
-    width: 25%;
-    padding: 20px;
+    /* width: 50%;
+    padding: 20px; */
     background-color: white;
 `,
 
@@ -33,7 +33,6 @@ export const Style = {
 `,
 
     Input: styled.input`
-    flex: 1;
     min-width: 40%;
     margin: 10px 0;
     padding: 10px;
