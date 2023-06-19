@@ -55,6 +55,7 @@ export default async function createAxiosInstance(
         });
     } catch (err) {
         console.log("Error in Axios Instance", err);
+        return err.response;
     }
 }
 

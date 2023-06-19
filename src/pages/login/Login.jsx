@@ -1,6 +1,5 @@
 import { Style } from "./Login.styled";
 import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from "../../context/AuthProvider";
 import authService from "../../services/auth.service";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,7 +9,7 @@ import { loginScehma } from "../../validations/loginValidation";
 
 
 const Login = () => {
-    const { register,
+    let { register,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -18,13 +17,9 @@ const Login = () => {
     });
     const { setAuth } = useAuth();
     const navigate = useNavigate();
-    const userRef = useRef();
-    const errRef = useRef();
+    const [loginError, setLoginError] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+
 
     // useEffect(() => {
     //     userRef.current.focus();
@@ -40,11 +35,13 @@ const Login = () => {
             const response = await authService.login(
                 data
             );
-            // setEmail('');
-            // setPassword('');
             if (response.status === 200) {
+                setLoginError('');
                 setAuth({ ...response.data });
                 navigate("/products");
+            }
+            else if (response.status === 401) {
+                setLoginError('Incorrect email or password');
             }
         } catch (err) {
             console.error("err", err);
@@ -81,6 +78,8 @@ const Login = () => {
                     {errors.password && (
                         <Style.Error>{errors.password.message}</Style.Error>
                     )}
+                    {loginError && <small style={{ color: "red", marginRight: "auto" }}>{loginError}</small>}
+
                     <Style.Button>LOGIN</Style.Button>
                 </Style.Form>
             </Style.Wrapper>
