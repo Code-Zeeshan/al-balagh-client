@@ -32,10 +32,12 @@ export const Style = {
     font-weight: 600;
     cursor: pointer;
     border: ${(props) => props.type === "filled" && "none"};
-    background-color: ${(props) =>
+    /* background-color: ${(props) =>
             props.type === "filled" ? "black" : "white"
         };
-    color: ${(props) => props.type === "filled" && "white"};
+    color: ${(props) => props.type === "filled" && "white"}; */
+    background-color: white;
+    color: black;
     `,
 
     TopTexts: styled.div`
