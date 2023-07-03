@@ -12,6 +12,8 @@ export const Style = {
     Wrapper: styled.div`
         background-color: black;    
         padding: 15px;
+        display: flex;
+        flex: 1;
     `,
 
     Title: styled.h1`
@@ -24,7 +26,7 @@ export const Style = {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    /* ${mobile({flex: "1"})} */
+    /* ${mobile({ flex: "1" })} */
     `,
 
     TopButton: styled.button`
@@ -32,10 +34,8 @@ export const Style = {
     font-weight: 600;
     cursor: pointer;
     border: ${(props) => props.type === "filled" && "none"};
-    /* background-color: ${(props) =>
-            props.type === "filled" ? "black" : "white"
-        };
-    color: ${(props) => props.type === "filled" && "white"}; */
+    align-self: end;
+    margin-bottom: 15px;
     background-color: white;
     color: black;
     `,
@@ -51,6 +51,8 @@ export const Style = {
     Bottom: styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: start;
+    flex: 1;
     `,
 
     Info: styled.div`
@@ -59,7 +61,7 @@ export const Style = {
 
     Product: styled.div`
     display: flex;
-    justify-content: space - between;
+    justify-content: space-between;
     `,
 
     ProductDetail: styled.div`
@@ -119,6 +121,7 @@ export const Style = {
     background-color: #eee;
     border: none;
     height: 1px;
+    width: 100%;
     `,
 
     Summary: styled.div`

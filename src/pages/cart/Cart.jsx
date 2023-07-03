@@ -126,15 +126,6 @@ const Cart = () => {
     return (
         <Style.Container>
             <Style.Wrapper>
-                {/* <Style.Title>YOUR BAG</Style.Title>
-                <Style.Top>
-                    <Style.TopButton>CONTINUE SHOPPING</Style.TopButton>
-                    <Style.TopTexts>
-                        <Style.TopText>Shopping Bag(2)</Style.TopText>
-                        <Style.TopText>Your Wishlist (0)</Style.TopText>
-                    </Style.TopTexts>
-                    <Style.TopButton type="filled">CHECKOUT NOW</Style.TopButton>
-                </Style.Top> */}
                 <Style.Bottom>
                     <Style.Info>
                         {cart?.products?.map((item, i) => (
@@ -146,13 +137,6 @@ const Cart = () => {
                                             <Style.ProductName>
                                                 <b>Product:</b> {item.productId.title}
                                             </Style.ProductName>
-                                            {/* <Style.ProductId>
-                                                <b>ID:</b> 93813718293
-                                            </Style.ProductId> */}
-                                            {/* <Style.ProductColor color="black" /> */}
-                                            {/* <Style.ProductSize>
-                                                <b>Size:</b> 37.5
-                                            </Style.ProductSize> */}
                                         </Style.Details>
                                     </Style.ProductDetail>
                                     <Style.PriceDetail>
@@ -168,34 +152,15 @@ const Cart = () => {
                                         <Style.ProductPrice>{item.productId.price} PKR</Style.ProductPrice>
                                     </Style.PriceDetail>
                                 </Style.Product>
-                                <Style.Hr />
                             </React.Fragment>
                         ))}
+                <Style.Hr />
                     </Style.Info>
-                    {/* <Style.Summary>
-                        <Style.SummaryTitle>ORDER SUMMARY</Style.SummaryTitle>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Subtotal</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 80</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Estimated Shipping</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 5.90</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem>
-                            <Style.SummaryItemText>Shipping Discount</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ -5.90</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.SummaryItem type="total">
-                            <Style.SummaryItemText>Total</Style.SummaryItemText>
-                            <Style.SummaryItemPrice>$ 80</Style.SummaryItemPrice>
-                        </Style.SummaryItem>
-                        <Style.TopButton>CHECKOUT NOW</Style.TopButton>
-                    </Style.Summary> */}
                 </Style.Bottom>
-
-                <h3>Total : PKR {totalAmount}</h3>
-                <Style.TopButton disabled={totalAmount === 0} onClick={placeOrder}>Order</Style.TopButton>
+                <div className="flex gap-2 items-end">
+                    <h3 style={{ alignSelf: "end", marginBottom: "15px" }}>Total : PKR {totalAmount}</h3>
+                    <Style.TopButton disabled={totalAmount === 0} onClick={placeOrder}>Order</Style.TopButton>
+                </div>
             </Style.Wrapper>
         </Style.Container>
     );
