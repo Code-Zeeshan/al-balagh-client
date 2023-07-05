@@ -15,8 +15,8 @@ const Cart = () => {
     const location = useLocation();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [totalAmount, setTotalAmount] = useState(0);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let isMounted = true;
@@ -117,6 +117,13 @@ const Cart = () => {
                     amount: totalAmount
                 }
             );
+            if (response.status === 200) {
+                setCart({});
+                setProducts([]);
+                setTotalAmount(0);
+                dispatch(getCount(0));
+            }
+            console.log("res", response);
         } catch (err) {
             console.error(err);
             navigate('/login', { state: { from: location }, replace: true });
@@ -154,7 +161,7 @@ const Cart = () => {
                                 </Style.Product>
                             </React.Fragment>
                         ))}
-                <Style.Hr />
+                        <Style.Hr />
                     </Style.Info>
                 </Style.Bottom>
                 <div className="flex gap-2 items-end">
